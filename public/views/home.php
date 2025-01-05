@@ -13,10 +13,11 @@
                     <div class="banner">BiblioSolis</div>
                 </div>
             </div>
-            <div class="actions">
-                <button class="action-button">Login</button>
-                <button class="action-button">Register</button>
-            </div>
+            <form class="actions">
+                <button class="action-button" formaction="login">Login</button>
+                <button class="action-button" formaction="register">Register</button>
+            </form>
         </div>
+
     </body>
 </html>
