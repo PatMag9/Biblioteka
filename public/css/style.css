@@ -354,9 +354,6 @@ nav ul {
     display: flex;
     align-items: center;
 }
-.mobile-nav ul{
-    height: 30%;
-}
 .mobile-nav ul li:hover{
     background-color: #0eabdf;
     cursor: pointer;

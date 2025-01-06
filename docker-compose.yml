@@ -9,6 +9,8 @@ services:
       - .:/app/
     links:
       - php
+    networks:
+      - biblioteka-network
 
   php:
     build:
@@ -16,3 +18,28 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - .:/app/
+    networks:
+      - biblioteka-network
+
+  db:
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
+    ports:
+      - "5439:5432"
+    networks:
+      - biblioteka-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pg-admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - biblioteka-network
+
+networks:
+  biblioteka-network:
