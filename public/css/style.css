@@ -287,6 +287,13 @@ nav ul {
     height: 150px;
     margin-right: 20px;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-cover img{
+    height: 100%;
 }
 
 .book-details {
@@ -342,7 +349,7 @@ nav ul {
     left: 0;
     width: 30%;
     height: 100%;
-    z-index: 1000;
+    z-index: 15;
 }
 .menu:hover .mobile-nav{
     display: block;
@@ -383,7 +390,7 @@ nav ul {
     background-color: #D1F3FF;
     position: absolute;
     box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
-    z-index: 1500;
+    z-index: 20;
 }
 .search-popup .search-pair{
     margin: 5px 10px;
@@ -402,13 +409,115 @@ nav ul {
     width: 3em;
 }
 
+.book-add-view{
+    background-color: #00000075;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 25;
+    scroll-behavior: unset;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-add-popup{
+    width: 500px;
+    height: 350px;
+
+}
+
+.book-add-header{
+    background-color: #1c8ed1;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.book-add-header div:first-child{
+    color: white;
+    margin-left: 10px;
+}
+
+.book-add-close{
+    margin-right: 10px;
+    padding: 5px 10px;
+}
+
+.book-add-close:hover{
+    background-color: #28C9FF;
+    cursor: pointer;
+}
+
+.book-add-main{
+    background-color: #0eabdf;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.book-add-main form{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.book-add-component{
+    margin: 10px 10px;
+}
+
+.book-add-buttons{
+    margin-top: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.book-add-button{
+    font-size: 2em;
+    appearance: auto;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    margin: 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+
+.book-add-button:hover{
+    cursor: pointer;
+}
+
 @media (max-width:992px){
     header{
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 500;
+        z-index: 10;
         padding: 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }

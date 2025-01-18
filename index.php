@@ -11,4 +11,5 @@ Routing::get('register','DefaultController');
 Routing::get('main','DefaultController');
 Routing::get('book','DefaultController');
 Routing::post('login','SecurityController');
+Routing::post('addBook','BookController');
 Routing::run($path);

@@ -8,6 +8,33 @@
 </head>
 
 <body>
+    <div class="book-add-view">
+    <div class="book-add-popup">
+        <div class="book-add-header">
+            <div>Dodaj książkę</div>
+            <div class="book-add-close">x</div>
+        </div>
+        <div class="book-add-main">
+            <?php
+            if(isset($messages)) {
+                foreach($messages as $message) {
+                    echo $message;
+                }
+            } ?>
+            <form action="addBook" method="POST" ENCTYPE="multipart/form-data">
+                <input name="title" type="text" placeholder="Tytuł" class="book-add-component">
+                <input name="author" type="text" placeholder="Autorzy" class="book-add-component">
+                <input name="genre" type="text" placeholder="Gatunek" class="book-add-component">
+                <input name="publisher" type="text" placeholder="Wydawnictwo" class="book-add-component">
+                <input name="cover" type="file" placeholder="Okładka" class="book-add-component">
+                <div class="book-add-buttons">
+                    <button type="submit" class="book-add-button">Dodaj</button>
+                    <div class="book-add-button">Anuluj</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <header>
         <div class="menu">
             <img src="public/img/menu.svg">
@@ -46,14 +73,13 @@
                 <div class="user-popup">
                     <ul>
                         <li>Logout</li>
-                        <li>option 2</li>
+                        <li>Dodaj książkę</li>
                         <li>option 3</li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
-    
     <main>
         <h2>Katalog Biblioteki BiblioSolis</h2>
         <nav>
@@ -108,12 +134,14 @@
         </div>
         <section class="book-list">
             <div class="book-card">
-                <div class="book-cover" style="background-color: #d77;"></div>
+                <div class="book-cover" style="background-color: #d77;">
+                    <img src="/public/uploads/<?= $book->getCover() ?>">
+                </div>
                 <div class="book-details">
-                    <p><strong>Tytuł:</strong> Tytuł przykładowy</p>
-                    <p><strong>Autor:</strong> Autor książki</p>
-                    <p><strong>Gatunek:</strong> Gatunek książki</p>
-                    <p><strong>Wydawca:</strong> Wydawnictwo</p>
+                    <p><strong>Tytuł:</strong> <?= $book->getTitle() ?></p>
+                    <p><strong>Autor:</strong> <?= $book->getAuthors() ?></p>
+                    <p><strong>Gatunek:</strong> <?= $book->getGenre() ?></p>
+                    <p><strong>Wydawca:</strong> <?= $book->getPublisher() ?></p>
                     <p><strong>Status:</strong> Dostępne</p>
                 </div>
                 <button class="borrow-button">Wypożycz</button>
