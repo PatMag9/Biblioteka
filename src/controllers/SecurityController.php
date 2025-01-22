@@ -25,6 +25,10 @@ class SecurityController extends AppController
             return $this->render('login', ['messages'=>['Błędne hasło']]);
         }
 
-        return $this->render('main');
+        //return $this->render('main');
+        header("Location: http://localhost:8080/main");
+        die();
+    }
+    public function register(){
     }
 }
