@@ -15,7 +15,7 @@
             </div>
             <form class="actions" action="login" method="POST">
                 <input class="input-button" name="email" type="text" placeholder="e-mail">
-                <input class="input-button" name="password" type="password" placeholder="password">
+                <input class="input-button" name="password" type="password" placeholder="hasło">
                 <button class="action-button" type="submit">Login</button>
             </form>
             <div class="messages">

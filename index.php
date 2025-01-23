@@ -7,7 +7,7 @@ $path=parse_url($path, PHP_URL_PATH);
 
 Routing::get('','DefaultController');
 Routing::get('home','DefaultController');
-Routing::get('register','DefaultController');
+Routing::get('register','SecurityController');
 Routing::get('main','BookController');
 Routing::get('book','DefaultController');
 Routing::post('login','SecurityController');

@@ -23,4 +23,34 @@ class UserRepository extends Repository
             $user['password']
         );
     }
+    public function addUser(User $user){
+        $stmt=$stmt = $this->database->connect()->prepare('
+            select max(id_user) from public.users
+        ');
+        $stmt->execute();
+
+        $idUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        $idUser['max']++;
+
+
+        $stmt = $this->database->connect()->prepare('
+            insert into public.users(id_user, email, password)
+            VALUES (?, ?, ?)
+        ');
+        $stmt->execute([
+            $idUser['max'],
+            $user->getEmail(),
+            $user->getPassword()
+        ]);
+
+        $stmt = $this->database->connect()->prepare('
+            insert into public.user_role(id_user, id_role)
+            VALUES (?, ?)
+        ');
+        $stmt->execute([
+            $idUser['max'],
+            1
+        ]);
+
+    }
 }
