@@ -45,11 +45,6 @@ class BookController extends AppController
             $this->bookRepository->addBook($book);
             header("Location: http://localhost:8080/main");
             die();
-            //$this->render('main', [
-            //    'messages' => $this->messages, 'book' => $book,
-            //    'books' => $this->bookRepository->getBooks()
-            //]);
-
         }
         else{
             header("Location: http://localhost:8080/main");
@@ -58,6 +53,17 @@ class BookController extends AppController
             //    'messages' => $this->messages,
             //    'books' => $this->bookRepository->getBooks()
             //]);
+        }
+    }
+
+    public function search(){
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+        if($contentType == 'application/json') {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+            header('Content-type: application/json');
+            http_response_code(200);
+            echo json_encode($this->bookRepository->getBooksByTitle($decoded['search']));
         }
     }
 
@@ -73,4 +79,5 @@ class BookController extends AppController
         }
         return true;
     }
+
 }

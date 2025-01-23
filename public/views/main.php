@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="public/css/style.css" />
     <script type="text/javascript" src="public/js/script.js" defer></script>
+    <script type="text/javascript" src="public/js/search.js" defer></script>
     <title>BiblioSolis</title>
     <meta charset="UTF-8">
 </head>
@@ -51,8 +52,6 @@
                             <option value="<?= $publisher->getID() ?>"><?= $publisher->getPublisherName() ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <!-- <input name="genre" type="text" placeholder="Gatunek" class="book-add-component">
-                    <input name="publisher" type="text" placeholder="Wydawnictwo" class="book-add-component"> -->
                     <input name="cover" type="file" placeholder="Okładka" class="book-add-component">
                     <div class="book-add-buttons">
                         <button type="submit" class="book-add-button">Dodaj</button>
@@ -80,7 +79,7 @@
                         </div>
                         <div class="search-popup">
                             <div class="search-pair">
-                                <input type="search-input" placeholder="Wyszukaj...">
+                                <input name="search-input" placeholder="Wyszukaj...">
                                 <button class="search-button-mobile"><img src="public/img/search.svg"></button>
                             </div>
                         </div>
@@ -93,7 +92,7 @@
             <div class="banner">BiblioSolis</div>
         </div>
         <div class="right-side">
-            <input type="search-input" placeholder="Wyszukaj...">
+            <input name="search-input" placeholder="Wyszukaj...">
             <button class="search-button"><img src="public/img/search.svg"></button>
             <div class="user-component">
                 <button id="user-button"><img src="public/img/user.svg"></button>
@@ -162,7 +161,7 @@
         <section class="book-list">
             <?php foreach($books as $book): ?>
             <div class="book-card">
-                <div class="book-cover" style="background-color: #d77;">
+                <div class="book-cover">
                     <img src="/public/uploads/<?= $book->getCover() ?>">
                 </div>
                 <div class="book-details">
@@ -188,5 +187,20 @@
         </div>
     </main>
 </body>
-
+<template id="book-template">
+    <div class="book-card">
+        <div class="book-cover">
+            <img src="">
+        </div>
+        <div class="book-details">
+            <p id="title"></p>
+            <p id="authors">
+            </p>
+            <p id="genre"></p>
+            <p id="publisher"></p>
+            <p><strong>Status:</strong> Dostępne</p>
+        </div>
+        <button class="borrow-button">Wypożycz</button>
+    </div>
+</template>
 </html>
