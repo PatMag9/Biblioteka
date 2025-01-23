@@ -13,4 +13,5 @@ Routing::get('book','DefaultController');
 Routing::post('login','SecurityController');
 Routing::post('addBook','BookController');
 Routing::post('search','BookController');
+Routing::post('orderByCondition','BookController');
 Routing::run($path);

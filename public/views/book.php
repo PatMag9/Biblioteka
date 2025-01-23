@@ -19,7 +19,7 @@
                     <li>Popularne</li>
                     <li>Alfabetycznie</li>
                     <li>Wydawnictwo</li>
-                    <li>Autorzy</li>
+                    <li>Gatunki</li>
                     <div class="search-component">
                         <div class="search-pair">
                             <div class="search-text">Wyszukaj</div>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="nav-element">
                     <div class="nav-text">
-                        Autorzy
+                        Gatunki
                     </div>
                     <div class="nav-line">
 

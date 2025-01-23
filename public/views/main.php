@@ -67,11 +67,11 @@
             <div class="mobile-nav">
                 <img src="public/img/menu.svg" class="menu-button" id="mobile_menu_button">
                 <ul>
-                    <li>Nowości</li>
-                    <li>Popularne</li>
-                    <li>Alfabetycznie</li>
-                    <li>Wydawnictwo</li>
-                    <li>Autorzy</li>
+                    <li class="books-new">Nowości</li>
+                    <li class="books-popular">Popularne</li>
+                    <li class="books-alphabetical">Alfabetycznie</li>
+                    <li class="books-publisher">Wydawnictwo</li>
+                    <li class="books-genres">Gatunki</li>
                     <div class="search-component">
                         <div class="search-pair" id="search-pair">
                             <div class="search-text">Wyszukaj</div>
@@ -110,7 +110,7 @@
         <h2>Katalog Biblioteki BiblioSolis</h2>
         <nav>
             <ul>
-                <div class="nav-element">
+                <div class="nav-element books-new">
                     <div class="nav-text">
                         Nowości
                     </div>
@@ -118,7 +118,7 @@
 
                     </div>
                 </div>
-                <div class="nav-element">
+                <div class="nav-element books-popular">
                     <div class="nav-text">
                         Popularne
                     </div>
@@ -126,7 +126,7 @@
 
                     </div>
                 </div>
-                <div class="nav-element">
+                <div class="nav-element books-alphabetical">
                     <div class="nav-text">
                         Alfabetycznie
                     </div>
@@ -134,7 +134,7 @@
 
                     </div>
                 </div>
-                <div class="nav-element">
+                <div class="nav-element books-publisher">
                     <div class="nav-text">
                         Wydawnictwo
                     </div>
@@ -142,9 +142,9 @@
 
                     </div>
                 </div>
-                <div class="nav-element">
+                <div class="nav-element books-genres">
                     <div class="nav-text">
-                        Autorzy
+                        Gatunki
                     </div>
                     <div class="nav-line">
 

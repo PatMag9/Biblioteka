@@ -40,6 +40,7 @@ class BookRepository extends Repository
             $book['cover']
         );
     }
+
     public function getBooks(): array
     {
         $result = [];
@@ -47,6 +48,7 @@ class BookRepository extends Repository
             select b.id_book, b.title, g.genre_name genre, p.publisher_name publisher, b.cover FROM public.books b
             JOIN public.genres g USING (id_genre)
             JOIN public.publishers p USING (id_publisher)
+            order by b.id_book
         ');
         $stmt->execute();
         $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -62,6 +64,7 @@ class BookRepository extends Repository
         }
         return $result;
     }
+
     public function addBook(Book $book): void
     {
         //$date = new DateTime();
@@ -97,6 +100,7 @@ class BookRepository extends Repository
         }
 
     }
+
     public function getBooksByTitle(string $searchString)
     {
         $searchString = '%'.strtolower($searchString).'%';
@@ -127,4 +131,34 @@ class BookRepository extends Repository
         }
         return $books;
     }
+
+    public function getBooksOrderedByCondition(string $condition){
+        $stmt = $this->database->connect()->prepare('
+            select b.id_book, b.title, g.genre_name genre, p.publisher_name publisher, b.cover FROM public.books b
+            JOIN public.genres g USING (id_genre)
+            JOIN public.publishers p USING (id_publisher)
+            order by '.$condition.'
+        ');
+        $stmt->execute();
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $N=0;
+        foreach($books as $book){
+            $stmt = $this->database->connect()->prepare('
+                select a.id_author, a.name, a.surname FROM public.books b
+                JOIN public.book_author ba USING (id_book)
+                JOIN public.authors a USING (id_author)
+                WHERE b.id_book = :id
+            ');
+            $stmt->bindParam(':id', $book['id_book'], PDO::PARAM_INT);
+            $stmt->execute();
+
+            $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $books[$N]['authors'] = $authors;
+            $N++;
+        }
+        return $books;
+    }
+
+
 }

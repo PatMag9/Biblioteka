@@ -1,8 +1,13 @@
 const search = document.querySelectorAll('input[name="search-input"]');
 const projectContainer = document.querySelector('.book-list');
+const booksNew = document.querySelectorAll('.books-new')
+const booksAlphabetical = document.querySelectorAll('.books-alphabetical')
+const booksPublisher = document.querySelectorAll('.books-publisher')
+const booksGenres = document.querySelectorAll('.books-genres')
 
 for (let i = 0; i < search.length; i++) {
-    search[i].addEventListener('keyup', function (event) {
+    search[i].addEventListener('keyup',
+        function (event) {
         if(event.key === "Enter") {
             event.preventDefault();
 
@@ -22,13 +27,105 @@ for (let i = 0; i < search.length; i++) {
             });
 
         }
-    });
+    }
+    );
 }
 
+for (let i = 0; i < search.length; i++){
+    booksNew[i].addEventListener('click',
+        function () {
+
+            const data = {condition: 'b.id_book'};
+
+            fetch("/orderByCondition",{
+                method: "POST",
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (books) {
+                projectContainer.innerHTML= "";
+                loadBooks(books);
+            });
+
+        }
+    );
+}
+
+for (let i = 0; i < search.length; i++){
+    booksAlphabetical[i].addEventListener('click',
+        function () {
+
+            const data = {condition: 'b.title'};
+
+            fetch("/orderByCondition",{
+                method: "POST",
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (books) {
+                projectContainer.innerHTML= "";
+                loadBooks(books);
+            });
+
+        }
+    );
+}
+
+for (let i = 0; i < search.length; i++){
+    booksPublisher[i].addEventListener('click',
+        function () {
+
+            const data = {condition: 'p.publisher_name'};
+
+            fetch("/orderByCondition",{
+                method: "POST",
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (books) {
+                projectContainer.innerHTML= "";
+                loadBooks(books);
+            });
+
+        }
+    );
+}
+
+for (let i = 0; i < search.length; i++){
+    booksGenres[i].addEventListener('click',
+        function () {
+
+            const data = {condition: 'g.genre_name'};
+
+            fetch("/orderByCondition",{
+                method: "POST",
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (books) {
+                projectContainer.innerHTML= "";
+                loadBooks(books);
+            });
+
+        }
+    );
+}
 
 function loadBooks(books) {
     books.forEach(book =>{
-        console.log(book);
+        console.log(book); //remove later
         createBook(book);
     });
 }
