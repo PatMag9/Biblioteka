@@ -33,6 +33,9 @@ class BookController extends AppController
 //        $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
 //    }
     public function main($category) {
+        if (!isset($_SESSION["email"])) {
+            header("Location: http://localhost:8080");
+        }
         $books = $this->bookRepository->getBooks($category);
         $genres = $this->genreRepository->getGenres();
         $publishers = $this->publisherRepository->getPublishers();
@@ -41,6 +44,9 @@ class BookController extends AppController
     }
 
     public function book($id) {
+        if (!isset($_SESSION["email"])) {
+            header("Location: http://localhost:8080");
+        }
         $book = $this->bookRepository->getBook($id);
         $genres = $this->genreRepository->getGenres();
         $publishers = $this->publisherRepository->getPublishers();

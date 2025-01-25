@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" type="text/css" href="../public/css/style.css" />
     <script type="text/javascript" src="../public/js/script.js" defer></script>
     <script type="text/javascript" src="../public/js/search.js" defer></script>
+    <?php if($_SESSION["isAdmin"]===true)
+        echo '<script type="text/javascript" src="../public/js/addBook.js" defer></script>';
+    ?>
     <title>BiblioSolis</title>
     <meta charset="UTF-8">
 </head>
 
 <body>
-    <div class="book-add-view" id="book-add-view">
-        <div class="book-add-popup">
-            <div class="book-add-header">
-                <div>Dodaj książkę</div>
-                <div class="book-add-close" id="book-add-close">x</div>
-            </div>
-            <div class="book-add-main">
-                <?php
-                if(isset($messages)) {
-                    foreach($messages as $message) {
-                        echo $message;
-                    }
-                } ?>
-                <form action="addBook" method="POST" ENCTYPE="multipart/form-data">
-                    <input name="title" type="text" placeholder="Tytuł" class="book-add-component">
-                    <div class="authors-dropdown">
-                        <div class="authors-dropdown-header">
-                            <span id="authors-dropdown-selected">Dodaj autora</span>
-                        </div>
-                        <div class="authors-dropdown-list">
-                            <div class="authors-dropdown-search">
-                                <input type="text" id="authors-search-input" placeholder="Szukaj...">
+    <?php if($_SESSION["isAdmin"]===true): ?>
+        <div class="book-add-view" id="book-add-view">
+            <div class="book-add-popup">
+                <div class="book-add-header">
+                    <div>Dodaj książkę</div>
+                    <div class="book-add-close" id="book-add-close">x</div>
+                </div>
+                <div class="book-add-main">
+                    <?php
+                    if(isset($messages)) {
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    } ?>
+                    <form action="addBook" method="POST" ENCTYPE="multipart/form-data">
+                        <input name="title" type="text" placeholder="Tytuł" class="book-add-component">
+                        <div class="authors-dropdown">
+                            <div class="authors-dropdown-header">
+                                <span id="authors-dropdown-selected">Dodaj autora</span>
                             </div>
-                            <?php foreach($authors as $author): ?>
-                                <label>
-                                    <input id="<?= $author->getName()." ".$author->getSurname() ?>" type="checkbox" name="author[]" value="<?= $author->getID() ?>">
-                                    <?= $author->getName()." ".$author->getSurname() ?>
-                                </label>
-                            <?php endforeach; ?>
+                            <div class="authors-dropdown-list">
+                                <div class="authors-dropdown-search">
+                                    <input type="text" id="authors-search-input" placeholder="Szukaj...">
+                                </div>
+                                <?php foreach($authors as $author): ?>
+                                    <label>
+                                        <input id="<?= $author->getName()." ".$author->getSurname() ?>" type="checkbox" name="author[]" value="<?= $author->getID() ?>">
+                                        <?= $author->getName()." ".$author->getSurname() ?>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                    </select>
-                    <select name="genre" class="book-add-component">
-                        <?php foreach($genres as $genre): ?>
-                            <option value="<?= $genre->getID() ?>"><?= $genre->getGenreName() ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <select name="publisher" class="book-add-component">
-                        <?php foreach($publishers as $publisher): ?>
-                            <option value="<?= $publisher->getID() ?>"><?= $publisher->getPublisherName() ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <input name="cover" type="file" placeholder="Okładka" class="book-add-component">
-                    <div class="book-add-buttons">
-                        <button type="submit" class="book-add-button">Dodaj</button>
-                        <div class="book-add-button" id="book-cancel-button">Anuluj</div>
-                    </div>
-                </form>
+                        </select>
+                        <select name="genre" class="book-add-component">
+                            <?php foreach($genres as $genre): ?>
+                                <option value="<?= $genre->getID() ?>"><?= $genre->getGenreName() ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <select name="publisher" class="book-add-component">
+                            <?php foreach($publishers as $publisher): ?>
+                                <option value="<?= $publisher->getID() ?>"><?= $publisher->getPublisherName() ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <input name="cover" type="file" placeholder="Okładka" class="book-add-component">
+                        <div class="book-add-buttons">
+                            <button type="submit" class="book-add-button">Dodaj</button>
+                            <div class="book-add-button" id="book-cancel-button">Anuluj</div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
     <header>
         <div class="menu">
             <img src="../public/img/menu.svg" class="menu-button" id="menu-button">
@@ -98,8 +102,10 @@
                 <button id="user-button"><img src="../public/img/user.svg"></button>
                 <div class="user-popup">
                     <ul>
-                        <li>Wyloguj</li>
-                        <li id="book-add-open">Dodaj książkę</li>
+                        <a href="../logout"><li>Wyloguj</li></a>
+                        <?php if($_SESSION["isAdmin"]===true)
+                            echo '<li id="book-add-open">Dodaj książkę</li>';
+                        ?>
                     </ul>
                 </div>
             </div>

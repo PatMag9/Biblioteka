@@ -17,10 +17,10 @@ class UserRepository extends Repository
         if($user == false){
             return null;
         }
-
         return new User(
             $user['email'],
-            $user['password']
+            $user['password'],
+            $this->isUserAdmin($user['email'])
         );
     }
     public function addUser(User $user){
@@ -53,5 +53,22 @@ class UserRepository extends Repository
             $db->rollBack();
             die("Nie udało się dodać użytkownika: " . $e->getMessage());
         }
+    }
+    private function isUserAdmin(String $email): bool{
+        $stmt = $this->database->connect()->prepare('
+            SELECT ur.id_role FROM public.users u
+            join public.user_role ur using (id_user)
+            WHERE email = :email
+        ');
+        $stmt->bindParam(':email',$email , PDO::PARAM_STR);
+        $stmt->execute();
+
+        $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($roles as $role){
+            if($role["id_role"] === 2){
+                return true;
+            }
+        }
+        return false;
     }
 }

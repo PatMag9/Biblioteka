@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
@@ -14,7 +14,9 @@ class SecurityController extends AppController
     }
 
     public function login(){
-
+        if (isset($_SESSION["email"])) {
+            header("Location: http://localhost:8080/main/");
+        }
         if (!$this->isPost()){
             return $this->render('login');
         }
@@ -23,14 +25,16 @@ class SecurityController extends AppController
         $password=$_POST['password'];
 
         $user = $this->userRepository->getUser($email);
-
         if (!$user){
             return $this->render('login', ['messages'=>['Dany użytkownik nie istnieje']]);
         }
         if (!password_verify($password, $user->getPassword())){
             return $this->render('login', ['messages'=>['Błędne hasło']]);
         }
-
+        $_SESSION["email"] = $user->getEmail();
+        $_SESSION["isAdmin"] = $user->isAdmin();
+//        if ($user->isAdmin()===true) $_SESSION["isAdmin"] = 'true';
+//        else $_SESSION["isAdmin"] = 'false';
         //return $this->render('main');
         header("Location: http://localhost:8080/main/");
         die();
@@ -51,12 +55,17 @@ class SecurityController extends AppController
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $user = new User($email, $hash);
+        $user = new User($email, $hash, 0);
 
         $this->userRepository->addUser($user);
 
         //return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
-        header("Location: http://localhost:8080/main/");
+        header("Location: http://localhost:8080/login");
         die();
+    }
+    public function logout(){
+        session_unset();
+        session_destroy();
+        header("Location: http://localhost:8080");
     }
 }
