@@ -45,100 +45,45 @@ for (let i = 0; i < search.length; i++) {
 }
 
 for (let i = 0; i < search.length; i++){
-    booksNew[i].addEventListener('click',
-        function () {
-
-            const data = {condition: 'b.id_book'};
-
-            fetch("/orderByCondition",{
-                method: "POST",
-                headers:{
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (books) {
-                projectContainer.innerHTML= "";
-                loadBooks(books);
-            });
-
-        }
-    );
+    const category = 'b.id_book';
+    booksNew[i].addEventListener('click',function () {handleClick(category);});
 }
 
 for (let i = 0; i < search.length; i++){
-    booksAlphabetical[i].addEventListener('click',
-        function () {
-
-            const data = {condition: 'b.title'};
-
-            fetch("/orderByCondition",{
-                method: "POST",
-                headers:{
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (books) {
-                projectContainer.innerHTML= "";
-                loadBooks(books);
-            });
-
-        }
-    );
+    const category = 'b.title';
+    booksAlphabetical[i].addEventListener('click',function () {handleClick(category);});
 }
 
 for (let i = 0; i < search.length; i++){
-    booksPublisher[i].addEventListener('click',
-        function () {
-
-            const data = {condition: 'p.publisher_name'};
-
-            fetch("/orderByCondition",{
-                method: "POST",
-                headers:{
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (books) {
-                projectContainer.innerHTML= "";
-                loadBooks(books);
-            });
-
-        }
-    );
+    const category = 'p.publisher_name';
+    booksPublisher[i].addEventListener('click',function () {handleClick(category);});
 }
 
 for (let i = 0; i < search.length; i++){
-    booksGenres[i].addEventListener('click',
-        function () {
+    const category = 'g.genre_name';
+    booksGenres[i].addEventListener('click',function () {handleClick(category);});
+}
 
-            const data = {condition: 'g.genre_name'};
+function handleClick(category) {
+    const data = { condition: category  };
 
-            fetch("/orderByCondition",{
-                method: "POST",
-                headers:{
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (books) {
-                projectContainer.innerHTML= "";
-                loadBooks(books);
-            });
-
-        }
-    );
+    fetch("/orderByCondition", {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        return response.json();
+    }).then(function (books) {
+        projectContainer.innerHTML = "";
+        loadBooks(books);
+    });
 }
 
 function loadBooks(books) {
     books.forEach(book =>{
-        console.log(book); //remove later
+        //console.log(book);
         createBook(book);
     });
 }

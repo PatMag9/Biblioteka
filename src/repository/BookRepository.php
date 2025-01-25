@@ -85,7 +85,7 @@ class BookRepository extends Repository
     public function addBook(Book $book): void
     {
         //$date = new DateTime();
-        $stmt=$stmt = $this->database->connect()->prepare('
+        $stmt = $this->database->connect()->prepare('
             select max(id_book) from public.books
         ');
         $stmt->execute();

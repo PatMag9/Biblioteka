@@ -24,33 +24,34 @@ class UserRepository extends Repository
         );
     }
     public function addUser(User $user){
-        $stmt=$stmt = $this->database->connect()->prepare('
-            select max(id_user) from public.users
-        ');
-        $stmt->execute();
+        $db = $this->database->connect();
+        try {
 
-        $idUser = $stmt->fetch(PDO::FETCH_ASSOC);
-        $idUser['max']++;
+            // Rozpoczęcie transakcji
+            $db->beginTransaction();
 
+            // Przygotowanie i wykonanie zapytania z CTE
+            $stmt = $db->prepare('
+            WITH identity AS (
+                INSERT INTO public.users (email, password)
+                VALUES (?, ?)
+                RETURNING id_user
+            )
+            INSERT INTO public.user_role (id_user, id_role)
+            SELECT id_user, 1 FROM identity
+            ');
 
-        $stmt = $this->database->connect()->prepare('
-            insert into public.users(id_user, email, password)
-            VALUES (?, ?, ?)
-        ');
-        $stmt->execute([
-            $idUser['max'],
-            $user->getEmail(),
-            $user->getPassword()
-        ]);
+            $stmt->execute([
+                $user->getEmail(),
+                $user->getPassword()
+            ]);
 
-        $stmt = $this->database->connect()->prepare('
-            insert into public.user_role(id_user, id_role)
-            VALUES (?, ?)
-        ');
-        $stmt->execute([
-            $idUser['max'],
-            1
-        ]);
-
+            // Zatwierdzenie transakcji
+            $db->commit();
+        } catch (Exception $e) {
+            // W przypadku błędu wycofanie transakcji
+            $db->rollBack();
+            die("Nie udało się dodać użytkownika: " . $e->getMessage());
+        }
     }
 }
