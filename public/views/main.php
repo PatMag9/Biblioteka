@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="public/css/style.css" />
-    <script type="text/javascript" src="public/js/script.js" defer></script>
-    <script type="text/javascript" src="public/js/search.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="../public/css/style.css" />
+    <script type="text/javascript" src="../public/js/script.js" defer></script>
+    <script type="text/javascript" src="../public/js/search.js" defer></script>
     <title>BiblioSolis</title>
     <meta charset="UTF-8">
 </head>
@@ -63,9 +63,9 @@
     </div>
     <header>
         <div class="menu">
-            <img src="public/img/menu.svg" class="menu-button" id="menu-button">
+            <img src="../public/img/menu.svg" class="menu-button" id="menu-button">
             <div class="mobile-nav">
-                <img src="public/img/menu.svg" class="menu-button" id="mobile_menu_button">
+                <img src="../public/img/menu.svg" class="menu-button" id="mobile_menu_button">
                 <ul>
                     <li class="books-new">Nowości</li>
                     <li class="books-popular">Popularne</li>
@@ -75,12 +75,12 @@
                     <div class="search-component">
                         <div class="search-pair" id="search-pair">
                             <div class="search-text">Wyszukaj</div>
-                            <button class="button-decoration"><img src="public/img/search.svg"></button>
+                            <button class="button-decoration"><img src="../public/img/search.svg"></button>
                         </div>
                         <div class="search-popup">
                             <div class="search-pair">
                                 <input name="search-input" placeholder="Wyszukaj...">
-                                <button class="search-button-mobile"><img src="public/img/search.svg"></button>
+                                <button class="search-button-mobile"><img src="../public/img/search.svg"></button>
                             </div>
                         </div>
                     </div>
@@ -88,19 +88,18 @@
             </div>
         </div>
         <div class="header-logo">
-            <img src="public/img/logo_outline.svg">
+            <img src="../public/img/logo_outline.svg">
             <div class="banner">BiblioSolis</div>
         </div>
         <div class="right-side">
             <input name="search-input" placeholder="Wyszukaj...">
-            <button class="search-button"><img src="public/img/search.svg"></button>
+            <button class="search-button"><img src="../public/img/search.svg"></button>
             <div class="user-component">
-                <button id="user-button"><img src="public/img/user.svg"></button>
+                <button id="user-button"><img src="../public/img/user.svg"></button>
                 <div class="user-popup">
                     <ul>
-                        <li>Logout</li>
+                        <li>Wyloguj</li>
                         <li id="book-add-open">Dodaj książkę</li>
-                        <li>option 3</li>
                     </ul>
                 </div>
             </div>
@@ -162,10 +161,12 @@
             <?php foreach($books as $book): ?>
             <div class="book-card">
                 <div class="book-cover">
-                    <img src="/public/uploads/<?= $book->getCover() ?>">
+                    <a href="../book/<?= $book->getID() ?>">
+                        <img src="/../public/uploads/<?= $book->getCover() ?>">
+                    </a>
                 </div>
                 <div class="book-details">
-                    <p><strong>Tytuł:</strong> <?= $book->getTitle() ?></p>
+                    <p><strong>Tytuł:</strong> <a href="../book/<?= $book->getID() ?>"><?= $book->getTitle() ?></a></p>
                     <p><strong>Autor/rzy:</strong>
                         <?php foreach($book->getAuthors() as $author): ?>
                             <?= $author->getName()." ".$author->getSurname()."&nbsp&nbsp&nbsp&nbsp" ?>
@@ -190,7 +191,9 @@
 <template id="book-template">
     <div class="book-card">
         <div class="book-cover">
-            <img src="">
+            <a href="">
+                <img src="">
+            </a>
         </div>
         <div class="book-details">
             <p id="title"></p>

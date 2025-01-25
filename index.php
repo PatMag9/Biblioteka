@@ -9,7 +9,7 @@ Routing::get('','DefaultController');
 Routing::get('home','DefaultController');
 Routing::get('register','SecurityController');
 Routing::get('main','BookController');
-Routing::get('book','DefaultController');
+Routing::get('book','BookController');
 Routing::post('login','SecurityController');
 Routing::post('addBook','BookController');
 Routing::post('search','BookController');

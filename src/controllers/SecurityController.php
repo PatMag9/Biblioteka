@@ -32,7 +32,7 @@ class SecurityController extends AppController
         }
 
         //return $this->render('main');
-        header("Location: http://localhost:8080/main");
+        header("Location: http://localhost:8080/main/");
         die();
     }
     public function register()
@@ -56,7 +56,7 @@ class SecurityController extends AppController
         $this->userRepository->addUser($user);
 
         //return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
-        header("Location: http://localhost:8080/main");
+        header("Location: http://localhost:8080/main/");
         die();
     }
 }

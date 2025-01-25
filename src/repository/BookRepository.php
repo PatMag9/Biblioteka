@@ -16,45 +16,62 @@ class BookRepository extends Repository
     public function getBook(int $id): ?Book
     {
         $stmt = $this->database->connect()->prepare('
-            select b.title, (a.name||a.surname) author, g.genre_name genre, p.publisher_name publisher, b.cover FROM public.books b
+            select b.id_book, b.title, g.genre_name genre, p.publisher_name publisher, b.cover FROM public.books b
             JOIN public.genres g USING (id_genre)
             JOIN public.publishers p USING (id_publisher)
-            JOIN public.book_author ba USING (id_book)
-            JOIN public.authors a USING (id_author)
             WHERE id_book = :id
         ');
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         $book = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resultAuthors = $this->authorRepository->getAuthorsByBookId($book['id_book']);
 
         if($book == false){
             return null;
         }
 
         return new Book(
+            $book['id_book'],
             $book['title'],
-            $book['author'],
+            $resultAuthors,
             $book['genre'],
             $book['publisher'],
             $book['cover']
         );
     }
 
-    public function getBooks(): array
+    public function getBooks(string $category='b.id_book'): array
     {
+        switch ($category) {
+            case 'new':
+                $category='b.id_book';
+                break;
+            case 'alphabetical':
+                $category='b.title';
+                break;
+            case 'publisher':
+                $category='p.publisher_name';
+                break;
+            case 'genre':
+                $category='g.genre_name';
+                break;
+            default:
+                $category='b.id_book';
+        }
         $result = [];
         $stmt = $this->database->connect()->prepare('
             select b.id_book, b.title, g.genre_name genre, p.publisher_name publisher, b.cover FROM public.books b
             JOIN public.genres g USING (id_genre)
             JOIN public.publishers p USING (id_publisher)
-            order by b.id_book
+            order by '.$category.'
         ');
         $stmt->execute();
         $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($books as $book){
             $resultAuthors = $this->authorRepository->getAuthorsByBookId($book['id_book']);
             $result[] = new Book(
+                $book['id_book'],
                 $book['title'],
                 $resultAuthors,
                 $book['genre'],
@@ -159,6 +176,4 @@ class BookRepository extends Repository
         }
         return $books;
     }
-
-
 }

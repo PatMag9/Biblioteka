@@ -203,6 +203,10 @@ nav ul {
     background: #333;
     margin: 0;
 }
+nav ul a{
+    text-decoration: none;
+    color: inherit;
+}
 .nav-element{
     margin: 0 10px;
     text-indent: 1.2em;
@@ -291,13 +295,21 @@ nav ul {
     align-items: center;
     justify-content: center;
 }
-
+.book-cover a{
+    height: 100%;
+}
 .book-cover img{
     height: 100%;
 }
 
 .book-details {
     flex-grow: 1;
+}
+
+.book-details a{
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
 }
 
 .borrow-button {
@@ -361,6 +373,10 @@ nav ul {
 .mobile-nav ul li:hover{
     background-color: #0eabdf;
     cursor: pointer;
+}
+.mobile-nav ul a{
+    text-decoration: none;
+    color: inherit;
 }
 .search-component {
     margin: 5px 0;

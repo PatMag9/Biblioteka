@@ -4,6 +4,19 @@ const booksNew = document.querySelectorAll('.books-new')
 const booksAlphabetical = document.querySelectorAll('.books-alphabetical')
 const booksPublisher = document.querySelectorAll('.books-publisher')
 const booksGenres = document.querySelectorAll('.books-genres')
+const search_button = document.getElementById("search-pair");
+const search_popup = document.querySelector(".search-popup");
+search_button.addEventListener("click", open_search_popup);
+
+function open_search_popup(){
+    search_popup.style.display = "block";
+}
+document.addEventListener("click", e=>{
+    //console.log(e.target);
+    if (!search_popup.contains(e.target) && !search_button.contains(e.target)) {
+        search_popup.style.removeProperty("display");
+    }
+});
 
 for (let i = 0; i < search.length; i++) {
     search[i].addEventListener('keyup',
@@ -136,8 +149,11 @@ function createBook(book) {
     const image = clone.querySelector('img');
     image.src = `/public/uploads/${book.cover}`;
 
+    const coverLink = clone.querySelector('a');
+    coverLink.href = `../book/${book.id_book}`;
+
     const title = clone.querySelector('#title');
-    title.innerHTML = `<strong>Tytuł:</strong> ${book.title}`;
+    title.innerHTML = `<strong>Tytuł:</strong> <a href="../book/${book.id_book}">${book.title}</a>`;
 
     const authors = clone.querySelector('#authors');
     authors.innerHTML = `<strong>Autor/rzy:</strong>`;

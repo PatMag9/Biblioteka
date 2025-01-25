@@ -25,12 +25,27 @@ class BookController extends AppController
         $this->authorRepository = new AuthorRepository();
     }
 
-    public function main() {
-        $books = $this->bookRepository->getBooks();
+//    public function main() {
+//        $books = $this->bookRepository->getBooks();
+//        $genres = $this->genreRepository->getGenres();
+//        $publishers = $this->publisherRepository->getPublishers();
+//        $authors = $this->authorRepository->getAuthors();
+//        $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
+//    }
+    public function main($category) {
+        $books = $this->bookRepository->getBooks($category);
         $genres = $this->genreRepository->getGenres();
         $publishers = $this->publisherRepository->getPublishers();
         $authors = $this->authorRepository->getAuthors();
         $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
+    }
+
+    public function book($id) {
+        $book = $this->bookRepository->getBook($id);
+        $genres = $this->genreRepository->getGenres();
+        $publishers = $this->publisherRepository->getPublishers();
+        $authors = $this->authorRepository->getAuthors();
+        $this->render('book', ['book' => $book, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
     }
 
     public function addBook(){
