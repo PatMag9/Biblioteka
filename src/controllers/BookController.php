@@ -33,8 +33,9 @@ class BookController extends AppController
 //        $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
 //    }
     public function main($category) {
-        if (!isset($_SESSION["email"])) {
+        if (!isset($_SESSION["id"])) {
             header("Location: http://localhost:8080");
+            die();
         }
         $books = $this->bookRepository->getBooks($category);
         $genres = $this->genreRepository->getGenres();
@@ -44,8 +45,9 @@ class BookController extends AppController
     }
 
     public function book($id) {
-        if (!isset($_SESSION["email"])) {
+        if (!isset($_SESSION["id"])) {
             header("Location: http://localhost:8080");
+            die();
         }
         $book = $this->bookRepository->getBook($id);
         $genres = $this->genreRepository->getGenres();
@@ -98,6 +100,24 @@ class BookController extends AppController
             echo json_encode($this->bookRepository->getBooksOrderedByCondition($decoded['condition']));
         }
     }
+
+    public function reserveBook($idBook){
+        $isAlreadyReserved = $this->bookRepository->isBookReserved($idBook);
+        if(!$isAlreadyReserved['isReserved']){
+            $this->bookRepository->reserveBook($idBook, $_SESSION["id"]);
+            header("Location: http://localhost:8080/main");
+            die();
+        }
+        header("Location: http://localhost:8080/main");
+        die();
+    }
+
+    public function cancelReserveBook($idBook){
+        $this->bookRepository->cancelReserveBook($idBook, $_SESSION["id"]);
+        header("Location: http://localhost:8080/main");
+        die();
+    }
+
 
     private function validate(array $cover): bool
     {

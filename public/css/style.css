@@ -312,7 +312,7 @@ nav ul a{
     font-weight: bold;
 }
 
-.borrow-button {
+.reserve-button {
     background: #28C9FF;
     color: #fff;
     border: none;
@@ -320,7 +320,26 @@ nav ul a{
     border-radius: 20px;
     cursor: pointer;
 }
-.borrow-button:hover {
+.reserve-button:hover {
+    background: #1c8ed1;
+}
+.reserved-button {
+    background: gray;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: not-allowed;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+.unreserve-button {
+    background: #28C9FF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.unreserve-button:hover {
     background: #1c8ed1;
 }
 .user-popup{

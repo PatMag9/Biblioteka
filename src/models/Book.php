@@ -8,8 +8,10 @@ class Book
     private $genre;
     private $publisher;
     private $cover;
+    private $isReserved;
+    private $isReservedBy=0;
 
-    public function __construct($ID, $title, array $authors, $genre, $publisher, $cover)
+    public function __construct($ID, $title, array $authors, $genre, $publisher, $cover, $isReserved, $isReservedBy)
     {
         $this->ID = $ID;
         $this->title = $title;
@@ -17,6 +19,8 @@ class Book
         $this->genre = $genre;
         $this->publisher = $publisher;
         $this->cover = $cover;
+        $this->isReserved = $isReserved;
+        $this->isReservedBy = $isReservedBy;
     }
 
     public function getID()
@@ -49,4 +53,23 @@ class Book
         return $this->cover;
     }
 
+    public function IsReserved()
+    {
+        return $this->isReserved;
+    }
+
+    public function setIsReserved($isReserved): void
+    {
+        $this->isReserved = $isReserved;
+    }
+
+    public function IsReservedBy()
+    {
+        return $this->isReservedBy;
+    }
+
+    public function setIsReservedBy($isReservedBy): void
+    {
+        $this->isReservedBy = $isReservedBy;
+    }
 }

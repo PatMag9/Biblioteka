@@ -18,6 +18,7 @@ class UserRepository extends Repository
             return null;
         }
         return new User(
+            $user['id_user'],
             $user['email'],
             $user['password'],
             $this->isUserAdmin($user['email'])

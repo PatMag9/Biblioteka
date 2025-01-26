@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <div id="sessionID" style="display: none;">
+        <?php
+        echo $_SESSION['id'];
+        ?>
+    </div>
     <?php if($_SESSION["isAdmin"]===true): ?>
         <div class="book-add-view" id="book-add-view">
             <div class="book-add-popup">
@@ -92,7 +97,7 @@
             </div>
         </div>
         <div class="header-logo">
-            <img src="../public/img/logo_outline.svg">
+            <a href=""><img src="../public/img/logo_outline.svg"></a>
             <div class="banner">BiblioSolis</div>
         </div>
         <div class="right-side">
@@ -180,9 +185,19 @@
                     </p>
                     <p><strong>Gatunek:</strong> <?= $book->getGenre() ?></p>
                     <p><strong>Wydawca:</strong> <?= $book->getPublisher() ?></p>
-                    <p><strong>Status:</strong> Dostępne</p>
+                    <p><strong>Status:</strong> <?= $book->IsReserved() ? "Zarezerwowane" : "Dostępne"; ?></p>
                 </div>
-                <button class="borrow-button">Wypożycz</button>
+                <a <?= $book->IsReserved() ?
+                    $book->IsReservedby()===$_SESSION['id'] ?
+                        'href="../cancelReserveBook/'.$book->getID().'"'
+                        :
+                        ""
+                    :
+                    'href="../reserveBook/'.$book->getID().'"'; ?>>
+                    <button class="<?= $book->IsReserved() ? $book->IsReservedby()===$_SESSION['id'] ? 'unreserve-button' : "reserved-button"  : 'reserve-button'; ?>">
+                        <?= $book->IsReserved() ? $book->IsReservedby()===$_SESSION['id'] ? 'Anuluj Rezerwacje' : "Zarezerwowane"  : 'Zarezerwuj'; ?>
+                    </button>
+                </a>
             </div>
             <?php endforeach; ?>
         </section>
@@ -207,9 +222,16 @@
             </p>
             <p id="genre"></p>
             <p id="publisher"></p>
-            <p><strong>Status:</strong> Dostępne</p>
+            <p id="status"></p>
         </div>
-        <button class="borrow-button">Wypożycz</button>
+        <a id="res-action">
+            <button id="res-button" class="">Zarezerwuj</button>
+        </a>
     </div>
 </template>
+<script>
+    const div = document.querySelector('#sessionID');
+    const sessionID = div.textContent;
+    div.innerHTML = ``;
+</script>
 </html>

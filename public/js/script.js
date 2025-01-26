@@ -24,7 +24,7 @@ function open_mobile_menu(){
 //zamykanie popupów, kiedy klikniemy po za ich pole
 document.addEventListener("click", e=>{
     //console.log(e.target);
-    if (!user_popup.contains(e.target) && !user_button.contains(e.target)){
+    if (!user_popup.contains(e.target) && !user_button.contains(e.target) && typeof book_add_view === 'undefined'){
         user_popup.style.removeProperty("display");
     }
     if (!mobile_menu.contains(e.target) && !menu_button.contains(e.target) || e.target===mobile_menu_button) {

@@ -30,6 +30,7 @@ class BookRepository extends Repository
         if($book == false){
             return null;
         }
+        $reservationStatus = $this->isBookReserved($book['id_book']);
 
         return new Book(
             $book['id_book'],
@@ -37,7 +38,9 @@ class BookRepository extends Repository
             $resultAuthors,
             $book['genre'],
             $book['publisher'],
-            $book['cover']
+            $book['cover'],
+            $reservationStatus['isReserved'],
+            $reservationStatus['idUser']
         );
     }
 
@@ -69,6 +72,7 @@ class BookRepository extends Repository
         $stmt->execute();
         $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($books as $book){
+            $reservationStatus = $this->isBookReserved($book['id_book']);
             $resultAuthors = $this->authorRepository->getAuthorsByBookId($book['id_book']);
             $result[] = new Book(
                 $book['id_book'],
@@ -76,7 +80,9 @@ class BookRepository extends Repository
                 $resultAuthors,
                 $book['genre'],
                 $book['publisher'],
-                $book['cover']
+                $book['cover'],
+                $reservationStatus['isReserved'],
+                $reservationStatus['idUser']
             );
         }
         return $result;
@@ -84,7 +90,6 @@ class BookRepository extends Repository
 
     public function addBook(Book $book): void
     {
-        //$date = new DateTime();
         $stmt = $this->database->connect()->prepare('
             select max(id_book) from public.books
         ');
@@ -144,6 +149,9 @@ class BookRepository extends Repository
 
             $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $books[$N]['authors'] = $authors;
+            $reservationStatus = $this->isBookReserved($book['id_book']);
+            $books[$N]['isReserved'] = $reservationStatus['isReserved'];
+            $books[$N]['isReservedBy'] = $reservationStatus['idUser'];
             $N++;
         }
         return $books;
@@ -172,8 +180,55 @@ class BookRepository extends Repository
 
             $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $books[$N]['authors'] = $authors;
+            $reservationStatus = $this->isBookReserved($book['id_book']);
+            $books[$N]['isReserved'] = $reservationStatus['isReserved'];
+            $books[$N]['isReservedBy'] = $reservationStatus['idUser'];
             $N++;
         }
         return $books;
+    }
+
+    public function isBookReserved(int $id) : array
+    {
+        $stmt = $this->database->connect()->prepare('
+            select * from public.reservations
+            where id_book = :id AND date_ended_reservation is NULL
+        ');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $reservationStatus = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($reservationStatus == false){
+            return ['isReserved' => false, 'idUser' => 0];
+        }
+        return ['isReserved' => true, 'idUser' => $reservationStatus['id_user']];
+    }
+
+    public function reserveBook(int $idBook, int $idUser)
+    {
+        $date = new DateTime();
+        $stmt = $this->database->connect()->prepare('
+            insert into public.reservations(id_user ,id_book, date_reserved)
+            values(?,?,?)
+        ');
+        $stmt->execute([
+            $idUser,
+            $idBook,
+            $date->format('Y-m-d H:i:s')
+        ]);
+    }
+
+    public function cancelReserveBook(int $idBook, int $idUser)
+    {
+        $date = new DateTime();
+        $stmt = $this->database->connect()->prepare('
+            UPDATE public.reservations
+            SET date_ended_reservation = :date
+            WHERE id_user = :idUser and id_book = :idBook and date_ended_reservation is NULL;
+        ');
+        $stmt->execute([
+            ':date' => $date->format('Y-m-d H:i:s'),
+            ':idUser' => $idUser,
+            ':idBook' => $idBook
+        ]);
     }
 }

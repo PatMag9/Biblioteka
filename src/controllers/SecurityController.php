@@ -14,8 +14,9 @@ class SecurityController extends AppController
     }
 
     public function login(){
-        if (isset($_SESSION["email"])) {
+        if (isset($_SESSION["id"])) {
             header("Location: http://localhost:8080/main/");
+            die();
         }
         if (!$this->isPost()){
             return $this->render('login');
@@ -31,6 +32,7 @@ class SecurityController extends AppController
         if (!password_verify($password, $user->getPassword())){
             return $this->render('login', ['messages'=>['Błędne hasło']]);
         }
+        $_SESSION["id"] = $user->getIdUser();
         $_SESSION["email"] = $user->getEmail();
         $_SESSION["isAdmin"] = $user->isAdmin();
 //        if ($user->isAdmin()===true) $_SESSION["isAdmin"] = 'true';
@@ -41,6 +43,10 @@ class SecurityController extends AppController
     }
     public function register()
     {
+        if (isset($_SESSION["id"])) {
+            header("Location: http://localhost:8080/main/");
+            die();
+        }
         if (!$this->isPost()) {
             return $this->render('register');
         }
@@ -55,7 +61,7 @@ class SecurityController extends AppController
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $user = new User($email, $hash, 0);
+        $user = new User(0, $email, $hash, 0);
 
         $this->userRepository->addUser($user);
 
@@ -67,5 +73,6 @@ class SecurityController extends AppController
         session_unset();
         session_destroy();
         header("Location: http://localhost:8080");
+        die();
     }
 }

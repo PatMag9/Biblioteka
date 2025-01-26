@@ -83,7 +83,7 @@ function handleClick(category) {
 
 function loadBooks(books) {
     books.forEach(book =>{
-        //console.log(book);
+        console.log(book);
         createBook(book);
     });
 }
@@ -111,6 +111,34 @@ function createBook(book) {
 
     const publisher = clone.querySelector('#publisher');
     publisher.innerHTML = `<strong>Wydawca:</strong> ${book.publisher}`;
+
+    const status = clone.querySelector('#status');
+    status.innerHTML = `<strong>Status:</strong> ${(book.isReserved === true) ? 'Zarezerwowane' :'Dostępne'}`;
+
+    const resAction = clone.querySelector('#res-action');
+    (book.isReserved === true) ?
+        (parseInt(book.isReservedBy) === parseInt(sessionID)) ?
+            resAction.href=`../cancelReserveBook/${book.id_book}`
+            :
+            ''
+        :
+        resAction.href=`../reserveBook/${book.id_book}`;
+
+    const resButton = clone.querySelector('#res-button');
+    resButton.className= `${(book.isReserved === true) ? 
+        (parseInt(book.isReservedBy) === parseInt(sessionID)) ? 
+            'unreserve-button' 
+            :
+            'reserved-button' 
+        :
+        'reserve-button'}`;
+    resButton.innerHTML= `${(book.isReserved === true) ? 
+        (parseInt(book.isReservedBy) === parseInt(sessionID)) ? 
+            'Anuluj Rezerwacje' 
+            :
+            'Zarezerwowane' 
+        :
+        'Zarezerwuj'}`;
 
     projectContainer.appendChild(clone);
 }
