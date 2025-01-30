@@ -168,10 +168,9 @@ function createBook(book) {
     title.innerHTML = `<strong>Tytuł:</strong> <a href="../book/${book.id_book}">${book.title}</a>`;
 
     const authors = clone.querySelector('#authors');
-    authors.innerHTML = `<strong>Autor/rzy:</strong>`;
-    book['authors'].forEach(author =>{
-        authors.innerHTML += ` ${author.name} ${author.surname}&nbsp&nbsp&nbsp&nbsp`;
-    });
+    authors.innerHTML = `<strong>Autor/rzy:</strong> `;
+    const authorList = book['authors'].map(author => `${author.name} ${author.surname}`);
+    authors.innerHTML += authorList.join(', ');
 
     const genre = clone.querySelector('#genre');
     genre.innerHTML = `<strong>Gatunek:</strong> ${book.genre}`;

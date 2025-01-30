@@ -182,9 +182,16 @@
                 <div class="book-details">
                     <p><strong>Tytuł:</strong> <a href="../book/<?= $book->getID() ?>"><?= $book->getTitle() ?></a></p>
                     <p><strong>Autor/rzy:</strong>
-                        <?php foreach($book->getAuthors() as $author): ?>
-                            <?= $author->getName()." ".$author->getSurname()."&nbsp&nbsp&nbsp&nbsp" ?>
-                        <?php endforeach; ?>
+                        <?php
+                        $authors = $book->getAuthors();
+                        $authorList = [];
+
+                        foreach($authors as $author) {
+                            $authorList[] = $author->getName()." ".$author->getSurname();
+                        }
+
+                        echo implode(", ", $authorList);
+                        ?>
                     </p>
                     <p><strong>Gatunek:</strong> <?= $book->getGenre() ?></p>
                     <p><strong>Wydawca:</strong> <?= $book->getPublisher() ?></p>

@@ -158,7 +158,7 @@
             <?php if (isset($book)): ?>
             <div class="book-page">
                 <div class="book-info">
-                    <div class="book-cover"><?= $book->getCover() ?></div>
+                    <div class="book-cover"><img src="/../public/uploads/<?= $book->getCover() ?>"></div>
                     <div class="book-details">
                         <p><strong>Tytuł:</strong> <?= $book->getTitle() ?></p>
                         <p><strong>Autor:</strong>
