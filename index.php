@@ -17,5 +17,6 @@ Routing::post('orderByCondition','BookController');
 Routing::get('logout','SecurityController');
 Routing::post('reserveBook','BookController');
 Routing::post('cancelReserveBook','BookController');
+Routing::post('fetchPagesByCondition','BookController');
 
 Routing::run($path);

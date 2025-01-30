@@ -240,6 +240,9 @@ nav ul a{
     border-radius: 25px;
     padding: 10px 0;
     margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .page-nav button {
@@ -249,12 +252,25 @@ nav ul a{
     background: #78d7f6;
     color: #fff;
     border-radius: 5px;
-    cursor: pointer;
 }
-
-.page-nav button:hover {
+.prev-page:hover {
+    cursor: pointer;
     background: #1c8ed1;
 }
+.next-page:hover {
+    cursor: pointer;
+    background: #1c8ed1;
+}
+
+.page-numbers button{
+    padding: 5px 10px;
+    margin: 0 2px;
+}
+
+button[page-active="true"] {
+    background-color: #1c8ed1;
+}
+
 .book-list {
     display: flex;
     flex-direction: column;
@@ -280,6 +296,9 @@ nav ul a{
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.button-href:hover{
+    cursor: default;
 }
 .book-info{
     display: flex;

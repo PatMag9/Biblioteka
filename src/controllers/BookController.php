@@ -25,13 +25,6 @@ class BookController extends AppController
         $this->authorRepository = new AuthorRepository();
     }
 
-//    public function main() {
-//        $books = $this->bookRepository->getBooks();
-//        $genres = $this->genreRepository->getGenres();
-//        $publishers = $this->publisherRepository->getPublishers();
-//        $authors = $this->authorRepository->getAuthors();
-//        $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
-//    }
     public function main($category) {
         if (!isset($_SESSION["id"])) {
             header("Location: http://localhost:8080");
@@ -41,7 +34,8 @@ class BookController extends AppController
         $genres = $this->genreRepository->getGenres();
         $publishers = $this->publisherRepository->getPublishers();
         $authors = $this->authorRepository->getAuthors();
-        $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors]);
+        $pages = $this->bookRepository->getPages();
+        $this->render('main', ['books' => $books, 'genres' => $genres, 'publishers' => $publishers, 'authors' => $authors, 'pages' => $pages ]);
     }
 
     public function book($id) {
@@ -79,17 +73,6 @@ class BookController extends AppController
         }
     }
 
-    public function search(){
-        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-        if($contentType == 'application/json') {
-            $content = trim(file_get_contents("php://input"));
-            $decoded = json_decode($content, true);
-            header('Content-type: application/json');
-            http_response_code(200);
-            echo json_encode($this->bookRepository->getBooksByTitle($decoded['search']));
-        }
-    }
-
     public function orderByCondition(){
         $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
         if($contentType == 'application/json') {
@@ -97,7 +80,19 @@ class BookController extends AppController
             $decoded = json_decode($content, true);
             header('Content-type: application/json');
             http_response_code(200);
-            echo json_encode($this->bookRepository->getBooksOrderedByCondition($decoded['condition']));
+            echo json_encode($this->bookRepository->fetchBooksByConditions($decoded['searchString'],$decoded['orderBy'],$decoded['page'],$decoded['booksPerPage']));
+        }
+    }
+
+    public function fetchPagesByCondition()
+    {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+        if($contentType == 'application/json') {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+            header('Content-type: application/json');
+            http_response_code(200);
+            echo json_encode($this->bookRepository->fetchPagesByCondition($decoded['searchString']));
         }
     }
 

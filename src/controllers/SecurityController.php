@@ -35,6 +35,7 @@ class SecurityController extends AppController
         $_SESSION["id"] = $user->getIdUser();
         $_SESSION["email"] = $user->getEmail();
         $_SESSION["isAdmin"] = $user->isAdmin();
+        setcookie("booksPerPage", "10", time() + (86400 * 1), '/');
 //        if ($user->isAdmin()===true) $_SESSION["isAdmin"] = 'true';
 //        else $_SESSION["isAdmin"] = 'false';
         //return $this->render('main');
@@ -72,6 +73,11 @@ class SecurityController extends AppController
     public function logout(){
         session_unset();
         session_destroy();
+        setcookie("searchString", "", time() - 3600);
+        setcookie("orderBy", "", time() - 3600);
+        setcookie("page", "", time() - 3600);
+        setcookie("maxPage", "", time() - 3600);
+        setcookie("booksPerPage", "", time() - 3600);
         header("Location: http://localhost:8080");
         die();
     }

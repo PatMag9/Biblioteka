@@ -89,7 +89,7 @@
                         <div class="search-popup">
                             <div class="search-pair">
                                 <input name="search-input" placeholder="Wyszukaj...">
-                                <button class="search-button-mobile"><img src="../public/img/search.svg"></button>
+                                <button class="search-button-mobile" id="search-button"><img src="../public/img/search.svg"></button>
                             </div>
                         </div>
                     </div>
@@ -97,12 +97,12 @@
             </div>
         </div>
         <div class="header-logo">
-            <a href=""><img src="../public/img/logo_outline.svg"></a>
+            <a href="../main"><img src="../public/img/logo_outline.svg"></a>
             <div class="banner">BiblioSolis</div>
         </div>
         <div class="right-side">
             <input name="search-input" placeholder="Wyszukaj...">
-            <button class="search-button"><img src="../public/img/search.svg"></button>
+            <button class="search-button" id="search-button"><img src="../public/img/search.svg"></button>
             <div class="user-component">
                 <button id="user-button"><img src="../public/img/user.svg"></button>
                 <div class="user-popup">
@@ -163,10 +163,13 @@
             </ul>
         </nav>
         <div class="page-nav">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>></button>
+            <button class="prev-page"><</button>
+            <div class="page-numbers">
+                <?php for ($i = 1; $i <= $pages; $i++) :?>
+                    <button page-active="false" page-id="<?php echo $i-1 ?>"><?php echo $i ?></button>
+                <?php endfor; ?>
+            </div>
+            <button class="next-page">></button>
         </div>
         <section class="book-list">
             <?php foreach($books as $book): ?>
@@ -187,7 +190,7 @@
                     <p><strong>Wydawca:</strong> <?= $book->getPublisher() ?></p>
                     <p><strong>Status:</strong> <?= $book->IsReserved() ? "Zarezerwowane" : "Dostępne"; ?></p>
                 </div>
-                <a <?= $book->IsReserved() ?
+                <a class="button-href" <?= $book->IsReserved() ?
                     $book->IsReservedby()===$_SESSION['id'] ?
                         'href="../cancelReserveBook/'.$book->getID().'"'
                         :
@@ -202,10 +205,13 @@
             <?php endforeach; ?>
         </section>
         <div class="page-nav">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>></button>
+            <button class="prev-page"><</button>
+            <div class="page-numbers">
+                <?php for ($i = 1; $i <= $pages; $i++) :?>
+                    <button page-active="false" page-id="<?php echo $i-1 ?>"><?php echo $i ?></button>
+                <?php endfor; ?>
+            </div>
+            <button class="next-page">></button>
         </div>
     </main>
 </body>
@@ -224,7 +230,7 @@
             <p id="publisher"></p>
             <p id="status"></p>
         </div>
-        <a id="res-action">
+        <a class="button-href" id="res-action">
             <button id="res-button" class="">Zarezerwuj</button>
         </a>
     </div>
