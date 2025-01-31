@@ -194,7 +194,7 @@
                         ?>
                     </p>
                     <p><strong>Gatunek:</strong> <?= $book->getGenre() ?></p>
-                    <p><strong>Wydawca:</strong> <?= $book->getPublisher() ?></p>
+                    <p><strong>Wydawnictwo:</strong> <?= $book->getPublisher() ?></p>
                     <p><strong>Status:</strong> <?= $book->IsReserved() ? "Zarezerwowane" : "Dostępne"; ?></p>
                 </div>
                 <a class="button-href" <?= $book->IsReserved() ?

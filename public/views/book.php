@@ -161,13 +161,20 @@
                     <div class="book-cover"><img src="/../public/uploads/<?= $book->getCover() ?>"></div>
                     <div class="book-details">
                         <p><strong>Tytuł:</strong> <?= $book->getTitle() ?></p>
-                        <p><strong>Autor:</strong>
-                            <?php foreach($book->getAuthors() as $author): ?>
-                                <?= $author->getName()." ".$author->getSurname()."&nbsp&nbsp&nbsp&nbsp" ?>
-                            <?php endforeach; ?>
+                        <p><strong>Autor/rzy:</strong>
+                            <?php
+                            $authors = $book->getAuthors();
+                            $authorList = [];
+
+                            foreach($authors as $author) {
+                                $authorList[] = $author->getName()." ".$author->getSurname();
+                            }
+
+                            echo implode(", ", $authorList);
+                            ?>
                         </p>
                         <p><strong>Gatunek:</strong> <?= $book->getGenre() ?></p>
-                        <p><strong>Wydawca:</strong> <?= $book->getPublisher() ?></p>
+                        <p><strong>Wydawnictwo:</strong> <?= $book->getPublisher() ?></p>
                         <p><strong>Status:</strong> <?= $book->IsReserved() ? "Zarezerwowane" : "Dostępne"; ?></p>
                     </div>
                 </div>

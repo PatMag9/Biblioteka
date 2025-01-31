@@ -45,12 +45,12 @@ class BookRepository extends Repository
         );
     }
 
-    public function getBooks(string $category='b.id_book'): array
+    public function getBooks(string $category='b.id_book desc'): array
     {
         switch ($category) {
             case 'new':
-                $category='b.id_book';
-                setcookie("orderBy", "b.id_book", time() + (86400 * 1), '/'); //time() + (86400 * 1) => obecny czas + 1 dzien
+                $category='b.id_book desc';
+                setcookie("orderBy", "b.id_book desc", time() + (86400 * 1), '/'); //time() + (86400 * 1) => obecny czas + 1 dzien
                 break;
             case 'alphabetical':
                 $category='b.title';
@@ -65,8 +65,8 @@ class BookRepository extends Repository
                 setcookie("orderBy", "g.genre_name", time() + (86400 * 1), '/');
                 break;
             default:
-                $category='b.id_book';
-                setcookie("orderBy", "b.id_book", time() + (86400 * 1), '/');
+                $category='b.id_book desc';
+                setcookie("orderBy", "b.id_book desc", time() + (86400 * 1), '/');
         }
         setcookie("searchString", "%", time() + (86400 * 1), '/');
         setcookie("page", "0", time() + (86400 * 1), '/');

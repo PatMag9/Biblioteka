@@ -131,6 +131,19 @@ body{
         font-size: 4em;
         border-radius: 80px;
     }
+    .book-card {
+        height: 300px;
+        font-size: 1.5em;
+    }
+    .reserve-button {
+        font-size: 1.2em;
+    }
+    .reserved-button {
+        font-size: 1.2em;
+    }
+    .unreserve-button {
+        font-size: 1.2em;
+    }
 }
 
 header{
@@ -304,6 +317,7 @@ button[page-active="true"] {
     display: flex;
     flex-direction: row;
     align-items: center;
+    font-size: 1.5em;
 }
 .book-cover {
     width: 150px;
@@ -477,55 +491,22 @@ button[page-active="true"] {
     align-items: center;
 }
 
-.book-add-popup{
-    width: 500px;
-    height: 350px;
-
-}
-
-.book-add-header{
-    background-color: #1c8ed1;
+.book-add-component {
     width: 100%;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.book-add-header div:first-child{
-    color: white;
-    margin-left: 10px;
-}
-
-.book-add-close{
-    margin-right: 10px;
-    padding: 5px 10px;
-}
-
-.book-add-close:hover{
-    background-color: #28C9FF;
-    cursor: pointer;
-}
-
-.book-add-main{
-    background-color: #0eabdf;
-    width: 100%;
-    height: 90%;
-    display: flex;
-    text-align: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-}
-
-.book-add-main form{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-}
-.book-add-component{
+    padding: 10px;
     margin: 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
 }
+
+.authors-dropdown {
+    position: relative;
+    margin: 10px 10px;
+    width: 95%;
+}
+
 .authors-dropdown-header{
     width: 100%;
     border: 1px solid #ccc;
@@ -536,11 +517,68 @@ button[page-active="true"] {
     justify-content: space-between;
     align-items: center;
     transform: translateX(-8px);
+    max-width: 400px;
+    background-color: #fff;
 }
+
 .authors-dropdown-header::after {
     content: '▼';
     font-size: 12px;
 }
+
+.book-add-popup{
+    width: 500px;
+    height: 450px;
+
+}
+
+.book-add-header{
+    background-color: #1c8ed1;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.book-add-header div:first-child{
+    color: white;
+    margin-left: 10px;
+}
+
+
+.book-add-close {
+    margin-right: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #ff4d4d;
+}
+
+.book-add-close:hover {
+    cursor: pointer;
+    color: #cc0000;
+    background-color: #28C9FF;
+}
+
+.book-add-main{
+    background-color: #0eabdf;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    overflow: auto;
+}
+
+.book-add-main form{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
 .authors-dropdown-list {
     position: absolute;
     max-height: 200px;
@@ -551,7 +589,15 @@ button[page-active="true"] {
     z-index: 1000;
     display: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    top: 100%;
+    left: 0;
+    right: 0;
 }
+
+.authors-dropdown:hover .authors-dropdown-list {
+    display: block;
+}
+
 .authors-dropdown-search{
     padding: 8px;
     border-bottom: 1px solid #ccc;
@@ -568,6 +614,10 @@ button[page-active="true"] {
     align-items: center;
     padding: 8px 10px;
     cursor: pointer;
+}
+
+.authors-dropdown-list label:hover {
+    background-color: #f0f8ff;
 }
 
 .book-add-buttons{
@@ -606,6 +656,14 @@ button[page-active="true"] {
 
 .book-add-button:hover{
     cursor: pointer;
+}
+
+#book-cancel-button {
+    background-color: #ff4d4d;
+}
+
+#book-cancel-button:hover {
+    background-color: #cc0000;
 }
 
 @media (max-width:992px){

@@ -61,7 +61,7 @@ for (let i = 0; i < searchButton.length; i++) {
 for (let i = 0; i < booksNew.length; i++){
     booksNew[i].addEventListener('click',function () {
         resetPagination();
-        setCookie("orderBy","b.id_book",1);
+        setCookie("orderBy","b.id_book desc",1);
         setCookie("page","0",1);
         FetchBooks();
     });
@@ -150,7 +150,7 @@ function FetchBooks() {
 
 function loadBooks(books) {
     books.forEach(book =>{
-        console.log(book);
+        //console.log(book);
         createBook(book);
     });
 }
@@ -176,7 +176,7 @@ function createBook(book) {
     genre.innerHTML = `<strong>Gatunek:</strong> ${book.genre}`;
 
     const publisher = clone.querySelector('#publisher');
-    publisher.innerHTML = `<strong>Wydawca:</strong> ${book.publisher}`;
+    publisher.innerHTML = `<strong>Wydawnictwo:</strong> ${book.publisher}`;
 
     const status = clone.querySelector('#status');
     status.innerHTML = `<strong>Status:</strong> ${(book.isReserved === true) ? 'Zarezerwowane' :'Dostępne'}`;
@@ -228,7 +228,7 @@ function fetchTotalBooks(){
 }
 
 function createPagination(pages){
-    console.log(pages)
+    //console.log(pages)
     setCookie("maxPage",pages.pages,1);
     page_numbers.forEach( pagination =>{
         pagination.innerHTML= '';

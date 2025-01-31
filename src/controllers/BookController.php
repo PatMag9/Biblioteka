@@ -58,7 +58,7 @@ class BookController extends AppController
                 dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['cover']['name']
             );
 
-            $book = new Book($_POST['title'], $_POST['author'], $_POST['genre'], $_POST['publisher'], $_FILES['cover']['name']);
+            $book = new Book(0, $_POST['title'], $_POST['author'], $_POST['genre'], $_POST['publisher'], $_FILES['cover']['name'], false, 0);
             $this->bookRepository->addBook($book);
             header("Location: http://localhost:8080/main");
             die();
@@ -66,10 +66,6 @@ class BookController extends AppController
         else{
             header("Location: http://localhost:8080/main");
             die();
-            //$this->render('main', [
-            //    'messages' => $this->messages,
-            //    'books' => $this->bookRepository->getBooks()
-            //]);
         }
     }
 
