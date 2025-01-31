@@ -100,6 +100,8 @@ Będąc na stronie startowej możemy zarejestrować nowego użytkownika, dane za
 ### Strona logowania
 Zalogowanie następuje, jeżeli użytkownik istnieje w bazie danych i dane się zgadzają. po wprowadzeniu poprawnych danych następuje utworzenie nowej sesji i przekierowanie na stronę katalogu książek.
 Na samym początku w bazie danych istnieją już dwaj użytkownicy:
+
+
 * 
   * email: user@user.com
   * password: user
