@@ -1,5 +1,5 @@
 ![](public/img/logo.svg)
-# BiblioSoils
+# BiblioSolis
 
 ## Spis treści
 * Wstęp
