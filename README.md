@@ -3,6 +3,7 @@
 
 ## Spis treści
 * Wstęp
+* Wykorzystane technologie
 * Prototypy
 * Konfiguracja kontenerów
 * Konfiguracja bazy danych
@@ -19,6 +20,15 @@
 ## Wstęp
 Repozytorium zawiera wykonanie projektu o nazwie "BiblioSolis". Projekt wykonany w ramach przedmiotu "Wstęp do Projektowania Aplikacji Internetowych".
 BiblioSolis to aplikacja internetowa służąca do rezerwowania książek w celu późniejszego wypożyczenia ich fizycznie w bibliotece
+
+## Wykorzystane technologie
+* HTML
+* CSS
+* PHP
+* JS
+* PostgreSQL
+* pgAdmin
+* Docker
 
 ## Prototypy
 Przed przedstawieniem prototypów chciałbym powiedzieć, iź różnią się one nieco od finalnego wyglądu, wraz z tworzeniem aplikacji poznawałem nowe funkcje oraz sposoby stylizacji strony i w rezultacie wygląd na bieżąco ewoluował.
